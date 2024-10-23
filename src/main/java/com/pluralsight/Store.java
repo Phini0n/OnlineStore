@@ -15,7 +15,6 @@ public class Store {
         double totalAmount = 0.0;
 
 
-
         // Load inventory from CSV file
         loadInventory("products.csv", inventory);
 
@@ -66,15 +65,18 @@ public class Store {
             while ((line = bufferedReader.readLine()) != null) {
                 if (!line.isEmpty()) {
                     String[] str = line.split("\\|");
-                    inventory.add (new Product(str[0], str[1], Double.parseDouble(str[3]), str[4]));
+                    inventory.add(new Product(
+                            str[0], // SKU
+                            str[1], // Product Name
+                            Double.parseDouble(str[2]), // Price
+                            str[3]) // Department
+                    );
                 }
             }
-
             bufferedReader.close();
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
-
     }
 
     // This method should display a list of products from the inventory,
@@ -83,7 +85,9 @@ public class Store {
     // their cart. The method should
     // add the selected product to the cart ArrayList.
     public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner) {
-
+        for (Product product : inventory) {
+            
+        }
     }
 
     public static void displayCart(ArrayList<Product> cart, Scanner scanner, double totalAmount) {
