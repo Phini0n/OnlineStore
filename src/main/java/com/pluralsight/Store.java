@@ -1,7 +1,10 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class Store {
 
@@ -10,6 +13,8 @@ public class Store {
         ArrayList<Product> inventory = new ArrayList<Product>();
         ArrayList<Product> cart = new ArrayList<Product>();
         double totalAmount = 0.0;
+
+
 
         // Load inventory from CSV file
         loadInventory("products.csv", inventory);
@@ -46,23 +51,39 @@ public class Store {
         }
     }
 
+    // This method should read a CSV file with product information and
+    // populate the inventory ArrayList with com.pluralsight.Product objects. Each line
+    // of the CSV file contains product information in the following format:
+    //
+    // id,name,price
+    //
+    // where id is a unique string identifier, name is the product name,
+    // price is a double value representing the price of the product
     public static void loadInventory(String fileName, ArrayList<Product> inventory) {
-        // This method should read a CSV file with product information and
-        // populate the inventory ArrayList with com.pluralsight.Product objects. Each line
-        // of the CSV file contains product information in the following format:
-        //
-        // id,name,price
-        //
-        // where id is a unique string identifier, name is the product name,
-        // price is a double value representing the price of the product
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("products.csv"));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (!line.isEmpty()) {
+                    String[] str = line.split("\\|");
+                    inventory.add (new Product(str[0], str[1], Double.parseDouble(str[3]), str[4]));
+                }
+            }
+
+            bufferedReader.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+
     }
 
+    // This method should display a list of products from the inventory,
+    // and prompt the user to add items to their cart. The method should
+    // prompt the user to enter the ID of the product they want to add to
+    // their cart. The method should
+    // add the selected product to the cart ArrayList.
     public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner) {
-        // This method should display a list of products from the inventory,
-        // and prompt the user to add items to their cart. The method should
-        // prompt the user to enter the ID of the product they want to add to
-        // their cart. The method should
-        // add the selected product to the cart ArrayList.
+
     }
 
     public static void displayCart(ArrayList<Product> cart, Scanner scanner, double totalAmount) {
