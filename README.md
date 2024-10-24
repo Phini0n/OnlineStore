@@ -12,15 +12,12 @@ A **product** consists of:
 Multiple menus allow the user to organize their cart and check out those items.
 
 ## User Stories
-> - As a user, I need to see when a deposit or purchase has occurred in my finances, so that I can plan spending accordingly.
-> - As a user, I need the ability to import and export my transaction information so that I can use it in other places than just the Financial Tracker program.
-> - As a developer, I want to handle user input errors, so that the program won't shut down abruptly and cause user confusion and frustration.
-> - As a developer I want to handle how transactions are managed in the main ArrayList and written to the csv file, so that the program runs efficiently.
-> - As a user, I want to manually add transactions to the ledger, so that I can stay up to date on my purchases and deposits.
-> - As a user, I want to be able to search my transactions and deposits by vendor, so that I know when I've done business with that vendor.
-> - As a user, I want to be able to list transactions specified by dates, so that I can see my purchases and deposits during a certain window of time.
-> - As a user, I want to have a Home Menu, Ledger Menu, and Reports Menu, so that I can access the relevant transaction information with little to no confusion.
-> - As a user, I want to see my transaction information in a organized, visually appealing way, so that I can understand when transactions happened.
+> - As a user I want to be able to add items into my cart from a given list, so that I can purchase them all at the same time later.
+> - As a user I want the inventory of the store to be loaded from my .csv file so that I can compile and purchase the items in the inventory.
+> - As a user I want to be able to search for my products by name, price, and department, so that I can find the exact items I want within my specifications.
+> - As a user I want to be able to see a products SKU, name, price, and department so I can assess all of the information and make a purchase.
+> - As a user I want to be able to see all of the products available for purchase, so that I can see what's available in the inventory.
+> - As a user I want to be able to navigate through organized menus so that I can easily understand where to purchase items, remove items, and checkout items.
 
 ## Setup
 
@@ -54,28 +51,26 @@ and the information needs to follow the format:
 - Java 17 (Amazon Corretto 17.0.12)
 
 ## Demo
-### The Ledger Menu
-![Ledger Menu](imgs/LedgerProcess.PNG)
+### Main Menu
+![Main Menu](imgs/main%20menu.PNG)
 
-### Making a Payment in the Home Menu
-![Making a Payment](imgs/MakingPayment.PNG)
+### Show Products
+![Showing a Product](imgs/4214124.PNG)
 
-### Searching by Vendor using the Reports Menu
-![Searching by Vendor](imgs/VendorSearch.PNG)
 
-## Unique Feature: Table Format
-My Financial Tracker program has a unique display of the table.
-![Unique Feature](imgs/Unique%20Feature.PNG)
+## Unique Feature
+My project uniquely combines the process of adding from a list and removing from a list using the promptItems() method.
 
 
 ## Future Work
 
-- Adapt table visual to allow for more characters per cell
-- Custom Search
+- Update checkout to include more information
+- Create Sales Receipt
+- Show quantity of items to purchase
 - Inline Comments and Documentation
 
 ## Resources
-
+Workbook 3
 
 
 ## Thanks
