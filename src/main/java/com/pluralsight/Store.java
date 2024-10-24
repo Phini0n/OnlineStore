@@ -86,7 +86,7 @@ public class Store {
     // add the selected product to the cart ArrayList.
     public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner) {
         for (Product product : inventory) {
-            
+            System.out.println(product);
         }
     }
 
