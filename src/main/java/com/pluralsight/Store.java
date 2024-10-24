@@ -35,7 +35,7 @@ public class Store {
             // Call the appropriate method based on user choice
             switch (choice) {
                 case 1:
-                    displayProducts(inventory, cart, scanner);
+                    displayProducts(inventory, cart, scanner, totalAmount);
                     break;
                 case 2:
                     displayCart(cart, scanner, totalAmount);
@@ -84,15 +84,102 @@ public class Store {
     // prompt the user to enter the ID of the product they want to add to
     // their cart. The method should
     // add the selected product to the cart ArrayList.
-    public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner) {
+    public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner,
+                                       double totalAmount) {
         System.out.println("\nSKU|Product Name|Price|Department");
         for (Product product : inventory) {
             System.out.println(product);
         }
 
-        System.out.println("\nDo you want to add an item to your cart?");
+        int choice = -1;
 
-        promptItems(inventory, cart, scanner, true);
+        // Menu
+        while (choice != 3) {
+            System.out.println("\n1. Filter");
+            System.out.println("2. Add a Product to your cart");
+            System.out.println("3. Back to Main Menu");
+            System.out.print("\nEnter: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            // Call the appropriate method based on user choice
+            switch (choice) {
+                case 1: // Filter submenu
+                    int filterChoice = -1;
+                    System.out.println("\n1. Name");
+                    System.out.println("2. Price");
+                    System.out.println("3. Department");
+                    System.out.println("4. Back");
+                    System.out.print("\nEnter: ");
+                    filterChoice = scanner.nextInt();
+                    try {
+                        switch (filterChoice) {
+                            case 1: // Name
+                                filterProducts(inventory, scanner, 0);
+                                break;
+                            case 2: // Price
+                                filterProducts(inventory, scanner, 1);
+                                break;
+                            case 3: // Department
+                                filterProducts(inventory, scanner, 2);
+                                break;
+                            case 4:
+                                break;
+                            default:
+                                System.out.println("Invalid choice!");
+                                break;
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e);
+                    }
+                    break;
+                case 2:
+                    promptItems(inventory, cart, scanner, true);
+                    break;
+                case 3:
+                    System.out.println("\nReturning to main menu");
+                    break;
+                default:
+                    System.out.println("\nInvalid choice!");
+                    break;
+            }
+        }
+    }
+
+
+    // Prints out items specified by the filterType
+    private static void filterProducts(ArrayList<Product> inventory, Scanner scanner, int filterType) {
+        String operation = switch (filterType) {
+            case 0 -> "name";
+            case 1 -> "price";
+            case 2 -> "department";
+            default -> "";
+        };
+
+        System.out.print("Enter the item's " + operation +  ": ");
+
+        switch (filterType) {
+            case 0: // name
+                String nameFilter = scanner.next();
+                for (Product product : inventory) {
+                    if (product.getName().contains(nameFilter))
+                        System.out.println(product);
+                }
+                    break;
+            case 1: // price
+                double doubleFilter = scanner.nextDouble();
+                for (Product product : inventory) {
+                    if (product.getPrice() == doubleFilter)
+                        System.out.println(product);
+                }
+                break;
+            case 2: // department
+                String filterDept = scanner.next();
+                for (Product product : inventory) {
+                    if (product.getDepartment().contains(filterDept))
+                        System.out.println(product);
+                }
+        }
     }
 
 
@@ -143,8 +230,32 @@ public class Store {
         } else {
             System.out.println("\n"+sb);
 
-            System.out.println("Do you want to remove items from your cart?");
-            promptItems(cart, cart, scanner, false);
+            int choice = -1;
+
+            while (choice != 3) {
+                System.out.println("1. Check Out");
+                System.out.println("2. Remove Product");
+                System.out.println("3. Return to main Menu");
+                System.out.print("\nEnter: ");
+                choice = scanner.nextInt();
+                scanner.nextLine();
+
+                // Call the appropriate method based on user choice
+                switch (choice) {
+                    case 1:
+                        checkOut(cart, totalAmount, scanner);
+                        break;
+                    case 2:
+                        System.out.println("Do you want to remove items from your cart?");
+                        promptItems(cart, cart, scanner, false);
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        System.out.println("\nInvalid choice!");
+                        break;
+                }
+            }
         }
     }
 
@@ -152,14 +263,21 @@ public class Store {
     // and display a summary of the purchase to the user. The method should
     // prompt the user to confirm the purchase, and deduct the total cost
     // from their account if they confirm.
-    public static void checkOut(ArrayList<Product> cart, double totalAmount) {
-        double subTotal = 0;
+    public static void checkOut(ArrayList<Product> cart, double totalAmount, Scanner scanner) {
         for (Product product : cart) {
-            subTotal =+ product.getPrice();
+            totalAmount += product.getPrice();
         }
 
-        System.out.println("Your total is: $" + subTotal);
-        System.out.println("Do you want to purchase these items?");
+        System.out.println("Your total is: $" + totalAmount);
+        System.out.print("Do you want to purchase these items? (Y/N): ");
+        if (scanner.nextLine().equalsIgnoreCase("Y")) {
+            System.out.println("Items were purchased successfully.");
+            totalAmount = 0;
+        } else if(scanner.nextLine().equalsIgnoreCase("N")) {
+            System.out.println("Items were not purchased.");
+        } else {
+            System.out.println("Invalid input.");
+        }
     }
 
     // This method should search the inventory ArrayList for a product with
