@@ -28,7 +28,7 @@ public class Store {
             System.out.println("1. Show Products");
             System.out.println("2. Show Cart");
             System.out.println("3. Exit");
-            System.out.println("\nEnter: ");
+            System.out.print("\nEnter: ");
             choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -41,10 +41,10 @@ public class Store {
                     displayCart(cart, scanner, totalAmount);
                     break;
                 case 3:
-                    System.out.println("Thank you for shopping with us!");
+                    System.out.println("\nThank you for shopping with us!");
                     break;
                 default:
-                    System.out.println("Invalid choice!");
+                    System.out.println("\nInvalid choice!");
                     break;
             }
         }
@@ -117,19 +117,29 @@ public class Store {
         }
     }
 
+    // This method should display the items in the cart ArrayList, along
+    // with the total cost of all items in the cart. The method should
+    // prompt the user to remove items from their cart by entering the ID
+    // of the product they want to remove. The method should update the cart ArrayList and totalAmount
+    // variable accordingly.
     public static void displayCart(ArrayList<Product> cart, Scanner scanner, double totalAmount) {
-        // This method should display the items in the cart ArrayList, along
-        // with the total cost of all items in the cart. The method should
-        // prompt the user to remove items from their cart by entering the ID
-        // of the product they want to remove. The method should update the cart ArrayList and totalAmount
-        // variable accordingly.
+        StringBuilder sb = new StringBuilder();
+        for (Product product : cart) {
+            sb.append(product.toString()).append("\n");
+        }
+        if (sb.isEmpty()) {
+            System.out.println("\nNothing was added to the cart!\n");
+        } else {
+            System.out.println("\n"+sb);
+        }
     }
 
+    // This method should calculate the total cost of all items in the cart,
+    // and display a summary of the purchase to the user. The method should
+    // prompt the user to confirm the purchase, and deduct the total cost
+    // from their account if they confirm.
     public static void checkOut(ArrayList<Product> cart, double totalAmount) {
-        // This method should calculate the total cost of all items in the cart,
-        // and display a summary of the purchase to the user. The method should
-        // prompt the user to confirm the purchase, and deduct the total cost
-        // from their account if they confirm.
+
     }
 
     // This method should search the inventory ArrayList for a product with
