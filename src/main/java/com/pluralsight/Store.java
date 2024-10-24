@@ -92,13 +92,20 @@ public class Store {
 
         System.out.println("\nDo you want to add an item to your cart?");
 
-        String choice = "";
+        promptItems(inventory, cart, scanner, true);
+    }
 
+
+    // Checks if item exists in sourcedList and if the item exists in sourcedList, it removes it from changedList.
+    // Putting the same list as a parameter just removes the item from the list.
+    // This condenses the processes done by displayProducts and displayCart into one method.
+    public static void promptItems(ArrayList<Product> sourcedList, ArrayList<Product> changedList, Scanner scanner, boolean add) {
         boolean isRunning = true;
 
         while (isRunning) {
             System.out.print("Enter the SKU (N to exit): ");
-            choice = scanner.nextLine();
+            String choice = scanner.nextLine();
+            String operation = add ? "added" : "removed";
 
             switch (choice.toUpperCase()) {
                 case "N":
@@ -106,10 +113,14 @@ public class Store {
                     isRunning = false;
                     break;
                 default:
-                    Product item = findProductById(choice, inventory);
+                    Product item = findProductById(choice, sourcedList);
                     if (!(item == null)) {
-                        cart.add(item);
-                        System.out.println(item.getName() + " successfully added!");
+                        if (add) {
+                            changedList.add(item);
+                        } else {
+                            changedList.remove(item);
+                        }
+                        System.out.println(item.getName() + " successfully "+ operation +"!");
                     } else {
                         System.out.println("Error, SKU " + choice + " not found. Returning to main menu.");
                     }
@@ -131,6 +142,9 @@ public class Store {
             System.out.println("\nNothing was added to the cart!\n");
         } else {
             System.out.println("\n"+sb);
+
+            System.out.println("Do you want to remove items from your cart?");
+            promptItems(cart, cart, scanner, false);
         }
     }
 
@@ -139,7 +153,13 @@ public class Store {
     // prompt the user to confirm the purchase, and deduct the total cost
     // from their account if they confirm.
     public static void checkOut(ArrayList<Product> cart, double totalAmount) {
+        double subTotal = 0;
+        for (Product product : cart) {
+            subTotal =+ product.getPrice();
+        }
 
+        System.out.println("Your total is: $" + subTotal);
+        System.out.println("Do you want to purchase these items?");
     }
 
     // This method should search the inventory ArrayList for a product with
