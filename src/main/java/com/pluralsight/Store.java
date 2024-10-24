@@ -23,12 +23,12 @@ public class Store {
         int choice = -1;
 
         // Display menu and get user choice until they choose to exit
+        System.out.println("Welcome to the Online com.pluralsight.Store!\n");
         while (choice != 3) {
-            System.out.println("Welcome to the Online com.pluralsight.Store!");
             System.out.println("1. Show Products");
             System.out.println("2. Show Cart");
             System.out.println("3. Exit");
-
+            System.out.println("\nEnter: ");
             choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -90,14 +90,14 @@ public class Store {
             System.out.println(product);
         }
 
-        System.out.println("\nDo you want to add an item to your cart? (N to exit)");
+        System.out.println("\nDo you want to add an item to your cart?");
 
         String choice = "";
 
         boolean isRunning = true;
 
         while (isRunning) {
-            System.out.print("Enter the SKU: ");
+            System.out.print("Enter the SKU (N to exit): ");
             choice = scanner.nextLine();
 
             switch (choice.toUpperCase()) {
@@ -109,7 +109,7 @@ public class Store {
                     Product item = findProductById(choice, inventory);
                     if (!(item == null)) {
                         cart.add(item);
-                        System.out.println(item.getName() + " successfully added! Returning to main menu.");
+                        System.out.println(item.getName() + " successfully added!");
                     } else {
                         System.out.println("Error, SKU " + choice + " not found. Returning to main menu.");
                     }
