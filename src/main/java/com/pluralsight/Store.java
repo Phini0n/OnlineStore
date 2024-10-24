@@ -85,8 +85,35 @@ public class Store {
     // their cart. The method should
     // add the selected product to the cart ArrayList.
     public static void displayProducts(ArrayList<Product> inventory, ArrayList<Product> cart, Scanner scanner) {
+        System.out.println("\nSKU|Product Name|Price|Department");
         for (Product product : inventory) {
             System.out.println(product);
+        }
+
+        System.out.println("\nDo you want to add an item to your cart? (N to exit)");
+
+        String choice = "";
+
+        boolean isRunning = true;
+
+        while (isRunning) {
+            System.out.print("Enter the SKU: ");
+            choice = scanner.nextLine();
+
+            switch (choice.toUpperCase()) {
+                case "N":
+                    System.out.println("\nReturning to main menu . . .\n");
+                    isRunning = false;
+                    break;
+                default:
+                    Product item = findProductById(choice, inventory);
+                    if (!(item == null)) {
+                        cart.add(item);
+                        System.out.println(item.getName() + " successfully added! Returning to main menu.");
+                    } else {
+                        System.out.println("Error, SKU " + choice + " not found. Returning to main menu.");
+                    }
+            }
         }
     }
 
@@ -105,11 +132,16 @@ public class Store {
         // from their account if they confirm.
     }
 
+    // This method should search the inventory ArrayList for a product with
+    // the specified ID, and return the corresponding com.pluralsight.Product object. If
+    // no product with the specified ID is found, the method should return
+    // null.
     public static Product findProductById(String id, ArrayList<Product> inventory) {
-        // This method should search the inventory ArrayList for a product with
-        // the specified ID, and return the corresponding com.pluralsight.Product object. If
-        // no product with the specified ID is found, the method should return
-        // null.
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).getSku().equals(id)) {
+                return inventory.get(i);
+            }
+        }
         return null;
     }
 }
